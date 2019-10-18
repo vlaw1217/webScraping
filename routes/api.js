@@ -7,8 +7,13 @@ router.get("/news", function(req, res) {
 });
 
 //Add a new user comment to the db//
-router.post("/news", function(req, res) {
-  res.send({ type: "POST" });
+router.post("/news", function (req, res) {
+    console.log(req.body);
+    res.send({
+        type: "POST",
+        name: req.body.name,
+        rank: req.body.rank
+    });
 });
 
 //Update user comment in the db//
