@@ -20,8 +20,10 @@ router.put("/news/:id", function(req, res, next) {
 });
 
 //Delete a user/comment from the db//
-router.delete("/news/:id", function(req, res, next) {
-  res.send({ type: "Delete" });
+router.delete("/news/:id", function (req, res, next) {
+    Usercomment.findByIdAndRemove({ _id: req.params.id }).then(function (userComment) {
+        res.send(userComment);
+    });
 });
 
 
