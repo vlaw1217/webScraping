@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Usercomment = require("../models/userComment");
 
 //Get a list of user comments from the db//
 router.get("/news", function(req, res) {
@@ -8,11 +9,9 @@ router.get("/news", function(req, res) {
 
 //Add a new user comment to the db//
 router.post("/news", function (req, res) {
-    console.log(req.body);
-    res.send({
-        type: "POST",
-        name: req.body.name,
-        rank: req.body.rank
+    Usercomment.create(req.body).then(function (userComment) {
+        res.send(userComment);
+ 
     });
 });
 

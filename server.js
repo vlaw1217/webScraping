@@ -1,8 +1,17 @@
 const express = require("express");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
+
+const cheerio = require("cheerio");
+const axios = require("axios");
 
 //Set up express app//
 const app = express();
+
+//Connect to mongodb//
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI);
 
 app.use(bodyParser.json());
 
