@@ -1,49 +1,22 @@
-//Parses our HTML and helps us find elements//
-// const cheerio = require("cheerio");
+const mongoose = require("mongoose");
 
-// //Makes HTTP request for HTML page//
- 
+// Save a reference to the Schema constructor
+const Schema = mongoose.Schema;
 
-// axios.get("https://www.nasa.gov/mission_pages/hubble/main/index.html/").then(function (res) {
-    
-//     const $ = cheerio.load(html);
+const StoriesSchema = new Schema({
 
-//     //let results = [];
+    title: {
+        type: String,
+        required: true
+    },
 
-//     const titleHeading = $(".title");
-//     console.log(title)
-    
-//     //     let hubble = $(element).text();
-//     //     let imgLink = $(element).children.attr("href");
-//     // });
+    link: {
+        type: String,
+        required: true
+    }
+});
 
-//     // results.push({
-//     //     title: hubble,
-//     //     link: imgLink
-//     // });
- 
-// });
+//Creates stories model from the above schema, using mongoose's model method
+const Stories = mongoose.model("Stories", StoriesSchema);
 
-// console.log(results);
-
-
-
-
-
-
-
-
-// const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
-
-// //Create stories Schemal & model//
-// const storiesSchema = new Schema({
-//     name: {
-//         type: String,
-//         required: [true, "Name field is required"]
-//     },
-//     comment: {
-//         type: String,
-//     }
-// });
-
+module.exports = Stories;
