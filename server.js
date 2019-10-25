@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+var exphbs = require("express-handlebars");
 
 //const router = express.Router();
 //const Usercomment = require("../models/userComment");
@@ -12,6 +13,12 @@ const db = require("./models");
 
 //Set up express app//
 const app = express();
+
+app.engine("handlebars", exphbs());
+app.set("view engine", "handlebars");
+app.get("/", function(req, res, next) {
+  res.render("home");
+});
 
 //Connect to mongodb//
 const MONGODB_URI =
