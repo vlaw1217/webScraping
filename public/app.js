@@ -42,7 +42,7 @@
                 let thisId = $(this).attr("data-id");
                 $.ajax({
                     method: "GET",
-                    url: "/" + thisId
+                    url: "/submit/" + thisId
                 })
                     .then(function (data) {
                         console.log(data)
