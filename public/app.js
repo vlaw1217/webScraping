@@ -1,46 +1,62 @@
-// Grab the stories as a json//
-$.getJSON("/news", function(data) {
-  // $("button").on(click, function () {
-  //Loop for each//
-  for (let i = 0; i < data.length; i++) {
-    let clickLink = "https://www.sciencealert.com/" + data[i].link;
-    let nextPage = "' target='" + "_blank" 
-      $("#topic").append(
-        "<p data-id='" +
-          data[i]._id +
-          "'>" +
-          data[i].title +
-          //"<br />" +
-          //data[i].link +
-          "</p>" +
-          "<a href='" +
-          clickLink +
-          nextPage +
-          "'>" +
-          "Article" +
-          "</a>"
-      );
-  }
-});
+//function getResults() {
+    //$("#topic").empty();
+    // Grab the stories as a json//
+    $.getJSON("/all", function (data) {
+        // $("button").on(click, function () {
+        //Loop for each//
+        for (let i = 0; i < data.length; i++) {
+            let clickLink = "https://www.sciencealert.com/" + data[i].link;
+            let nextPage = "' target='" + "_blank"
+            let inputText = "<input type='" + "text" +"'>" 
+              $("#topic").append(
+                //Display Title//
+                "<p data-id='" +
+                  data[i]._id +
+                  "'>" +
+                  data[i].title +
+                  "</p>" +
 
-// $("#btn").on(click, function() {
-//   let button = www.sciencealert.com + data[i].title;
-//   $.ajax({
-//     method: "GET",
-//     url: button
-//   }).then(function(data) {
-//     console.log(data);
-//   });
-// });
+                  //Link for Click and re-route to new page//
+                  "<a href='" +
+                  clickLink +
+                  nextPage +
+                  "'>" +
+                  "Article" +
+                  "</a>" +
+                  "<br />" 
 
-// $("a").on("click", "a", function () {
-//     let thisId = $(this).attr("data-id");
+                //   //Input Form//
+                //   "<form>" +
+                //   inputText +
+                //   "</form>" +
+                //   "<br />" +
+                  
+                //   //Submit buttons//
+                //   "<button>" +
+                //   "Submit" +
+                //   "</button>"
+              );
+        }
+            $(document).on("click", "button", function() {
+                $("#make-comment").empty();
+                let thisId = $(this).attr("data-id");
+                $.ajax({
+                    method: "GET",
+                    url: "/" + thisId
+                })
+                    .then(function (data) {
+                        console.log(data)
+                    });
+            });
+        $.ajax({
+          method: "POST",
+          url: "/submit/" + thisId,
+          data: {
+            name: $("#userName").val(),
+            title: $("#title").val(),
+            comment: $("#comment").val()
+          }
+        });
 
-//     $.ajax({
-//         method: "GET",
-//         url: "/news/" + thisId
-//     })
-//     .then(function (data) {
-//         console.log(data)
-//     });
-// });
+
+    });

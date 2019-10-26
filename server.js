@@ -45,12 +45,12 @@ app.use(function(err, req, res, next) {
 
 //Get a list of news//
 app.get("/scrape", function (req, res, next) {
- 
-  axios.get("https://www.sciencealert.com/space").then(function(res) {
+  
+  axios.get("https://www.sciencealert.com/space/").then(function(res) {
     //console.log(res.data)
     let $ = cheerio.load(res.data);
     $(".titletext").each(function (index, element) {
-      let result = {};
+      let result  = {};
         result.title = $(this)
       .children("a")
       .text();
@@ -59,10 +59,22 @@ app.get("/scrape", function (req, res, next) {
       .children("a")
       .attr("href")  
       
-        //result[index] = { title, link };
-      //res.send(result)
+      // results.push({
+      //   title: title,
+      //   link: link
+      // });
      
     //console.log(result);
+        //  db.Stories.create(result)
+        // .then(function(dbStories) {
+        //   // View the added result in the console
+        //   console.log(dbStories);
+        // })
+        // .catch(function(err) {
+        //   // If an error occurred, log it
+        //   console.log(err);
+        // });
+   
   
         db.Stories.update(result) 
           .then(function (dbStories) {
@@ -76,10 +88,10 @@ app.get("/scrape", function (req, res, next) {
    });
 
     //res.send("Scrape Complete")
-  });
-//});
+ // });
+});
 
-app.get("/news", function(req, res) {
+app.get("/all", function(req, res) {
   db.Stories.find({})
     .then(function(dbStories) {
       res.send(dbStories);
@@ -90,24 +102,46 @@ app.get("/news", function(req, res) {
 });
 
 //Add a new user to the db//
-app.post("/news", function(req, res, next) {
-  db.UserComment.create(req.body)
-    .then(function(UserComment) {
-      res.send(UserComment);
-    })
-    .catch(next);
+app.post("/submit", function (req, res, next) {
+  let user = new User(req.body);
+  user.name();
+  user.topic();
+  user.comment();
+
+  UserComment.create(req.body)
+    .then(function (dbUserComment) {
+    res.send(dbUserComment)
+  })
+    .catch(function (err) {
+    res.json(err)
+  })
+//     .then(function(UserComment) {
+//       res.send(Saved);
+//     })
+//     .catch(next);
+});
+ 
+app.get("/submit", function (req, res) {
+  db.UserComment.find({}, function (err, found) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      res.json(found)
+    }
+  });
 });
 
 //Update user in the db//
-app.put("/news/:id", function(req, res, next) {
-  db.UserComment.findByIdAndUpdate({ _id: req.params.id }, req.body).then(
-    function() {
-      UserComment.findOne({ _id: req.params.id }).then(function(UserComment) {
-        res.send(UserComment);
-      });
-    }
-  );
-});
+// app.put("/news/:id", function(req, res, next) {
+//   db.UserComment.findByIdAndUpdate({ _id: req.params.id }, req.body).then(
+//     function() {
+//       UserComment.findOne({ _id: req.params.id }).then(function(UserComment) {
+//         res.send(UserComment);
+//       });
+//     }
+//   );
+// });
 
 //Delete a user from the db//
 app.delete("/news/:id", function(req, res, next) {

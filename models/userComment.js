@@ -10,14 +10,18 @@ const UserCommentSchema = new Schema({
     required: [true, "Name field is required"]
   },
 
+  title: {
+    type: String,
+  },
+
   comment: {
     subject: String,
-    type: String,
-    date: {
-      type: Date,
-      default: Date.now
-    },
-    
+    type: String
+  },
+
+  userCreated: {
+    type: Date,
+    default: Date.now
   }
 });
 const UserComment = mongoose.model("UserComment", UserCommentSchema);
