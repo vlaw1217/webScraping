@@ -23,13 +23,12 @@ app.get("/", function(req, res, next) {
 
 //Connect to mongodb//
 const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://heroku_vt5p6t8n:pu59sgubba7edr743pl29sjd77@ds137498.mlab.com:37498/heroku_vt5p6t8n"
-  //mongodb://localhost/mongoHeadlines";
+  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+  //"mongodb://heroku_vt5p6t8n:pu59sgubba7edr743pl29sjd77@ds137498.mlab.com:37498/heroku_vt5p6t8n"
  // process.env.MONGODB_URI ||"mongodb://heroku_vt5p6t8n:pu59sgubba7edr743pl29sjd77@ds137498.mlab.com:37498/heroku_vt5p6t8n";
  
   mongodb: mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    useNewUrlParser: true
   });
 //adding 1 more comment
 //console.log("debug")
