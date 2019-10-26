@@ -1,6 +1,6 @@
 //Exporting an object containing all of our models
 
 module.exports = {
-  Stories: require("./Stories"),
+  Stories: require("./stories"),
   UserComment: require("./UserComment")
 };
