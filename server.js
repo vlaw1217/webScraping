@@ -91,7 +91,7 @@ app.get("/scrape", function (req, res, next) {
       });
    });
 
-    //res.send("Scrape Complete")
+    res.send("Scrape Complete")
  // });
 });
 
