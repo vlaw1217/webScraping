@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-var exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
+const PORT = process.env.PORT || 8080;
 
 //const router = express.Router();
 //const Usercomment = require("../models/userComment");
@@ -22,13 +23,16 @@ app.get("/", function(req, res, next) {
 
 //Connect to mongodb//
 const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+  process.env.MONGODB_URI || "mongodb://heroku_vt5p6t8n:pu59sgubba7edr743pl29sjd77@ds137498.mlab.com:37498/heroku_vt5p6t8n"
+  //mongodb://localhost/mongoHeadlines";
+ // process.env.MONGODB_URI ||"mongodb://heroku_vt5p6t8n:pu59sgubba7edr743pl29sjd77@ds137498.mlab.com:37498/heroku_vt5p6t8n";
+ 
+  mongodb: mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 //adding 1 more comment
-console.log("debug")
+//console.log("debug")
 // Make public a static folder
 app.use(express.static("public"));
 
@@ -154,8 +158,11 @@ app.delete("/news/:id", function(req, res, next) {
 });
 
 //module.exports = router;
-
-//Listen for request//
-app.listen(process.env.port || 4000, function() {
-  console.log("now listening for requests");
+app.listen(PORT, function() {
+  // Log (server-side) when our server has started
+  console.log("Server listening on: http://localhost:" + PORT);
 });
+//Listen for request//
+// app.listen(process.env.port || 4000, function() {
+//   console.log("now listening for requests");
+// });
