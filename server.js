@@ -27,7 +27,8 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
+//adding 1 more comment
+console.log("debug")
 // Make public a static folder
 app.use(express.static("public"));
 
